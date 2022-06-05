@@ -1,0 +1,15 @@
+.about {
+  display: flex;
+  margin-top: 65px;
+}
+
+.about h2 {
+  font-size: 28px;
+  margin: 0;
+  margin-right: 100px;
+  width: 60%;
+}
+
+.about p {
+    margin: 0;
+}

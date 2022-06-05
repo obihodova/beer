@@ -1,0 +1,19 @@
+h2 {
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 35px;
+}
+
+.product-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.homepage {
+  margin-top: 75px;
+}
+
+.home-disc {
+  margin: 65px 0;
+}
