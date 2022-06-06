@@ -1,4 +1,4 @@
-.not_found {
+.not-found {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -6,7 +6,12 @@
   height: 100%;
 }
 
-.not_found img {
+.not-found img {
   width: 300px;
   height: 300px;
+}
+
+.not-found-desc {
+  margin-top: 75px;
+  font-weight: 200;
 }

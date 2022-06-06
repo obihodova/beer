@@ -3,7 +3,9 @@ import "./Aboutpage.css";
 import Header from "../../components/Header";
 import Navigate from "../../components/Navigate";
 
+
 function Aboutpage() {
+
   return (
     <div>
       <Header />

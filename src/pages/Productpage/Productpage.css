@@ -1,3 +1,48 @@
 .product-page {
-    display: flex;
+  display: flex;
+}
+
+.beer-pic {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+  height: 614px;
+}
+
+.beer-pic img {
+  display: block;
+  height: 464px;
+}
+
+.product-page h2 {
+    margin-top: 75px;
+}
+
+.product-page .beer-info {
+    width: 50%;
+}
+
+.product-page .beer-info p {
+    width: 80%;
+}
+
+.product-page h6 {
+    margin: 20px 0;
+}
+
+
+.product-page button {
+    background-color: white;
+    border: 1px solid rgba(50, 51, 52, 1);
+    font-size: 14px;
+    font-weight: 600;
+    height: 40px;
+    width: 124px;
+}
+
+.product-page input {
+    display: block;
+    width: 50px;
+    
 }

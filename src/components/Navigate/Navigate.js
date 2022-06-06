@@ -4,8 +4,8 @@ import "./Navigate.css";
 
 function Navigate() {
   return (
-    <>
-      <hr></hr>
+    <div className="navigate-container">
+      <hr className="line"></hr>
       <div className="navigate">
         <Link to="/" className="nav-link">
           HOME
@@ -15,7 +15,7 @@ function Navigate() {
         </Link>
       </div>
       <hr></hr>
-    </>
+    </div>
   );
 }
 
