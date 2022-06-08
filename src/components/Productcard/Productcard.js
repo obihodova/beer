@@ -3,10 +3,14 @@ import { Link } from "react-router-dom";
 import "./Productcard.css";
 import { DataContext } from "../../App";
 import { useContext } from "react";
+import { useSelector } from "react-redux";
 
 function Productcard(props) {
   const { productInfo } = props;
   const { data, setData } = useContext(DataContext);
+
+
+  // const productInfo = useSelector(store => store.beerInfo);
 
   const addToCart = () => {
     const beers = data.beers.map((beer) => {

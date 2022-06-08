@@ -6,6 +6,9 @@ import Aboutpage from "./pages/Aboutpage";
 import Productpage from "./pages/Productpage";
 import Notfound from "./pages/Notfound";
 import { useState, useEffect } from "react";
+import { fetchBeers } from "./asyncActions/beers";
+import { useDispatch } from "react-redux";
+
 
 export const DataContext = React.createContext({
   beers: [],
@@ -16,7 +19,12 @@ export const DataContext = React.createContext({
   },
 });
 
+
+
 function App() {
+
+  const dispatch = useDispatch();
+  
   const [data, setData] = useState({
     beers: [],
     isLoggin: false,
@@ -27,12 +35,7 @@ function App() {
   });
 
   useEffect(() => {
-    fetch("https://api.punkapi.com/v2/beers")
-      .then((response) => {
-        return response.json();
-      })
-      .then((response) => setData((state) => ({ ...state, beers: response })))
-      .catch((err) => console.log(err));
+    dispatch(fetchBeers());
   }, []);
 
   return (
