@@ -50,11 +50,12 @@ function Productpage() {
           <p>{productInfo.description}</p>
           <p>{`in stock: ${productInfo.ebc}`}</p>
           {data.isLoggin ? (
-            productInfo.ebc !== null && productInfo.ebc !==0 ? (
+            productInfo.ebc !== null && productInfo.ebc !== 0 ? (
               <>
                 <input
                   type="number"
                   min="1"
+                  
                   max={productInfo.ebc}
                   value={amountOfBottles}
                   onChange={(e) => setAmountOfBottles(e.target.value)}
