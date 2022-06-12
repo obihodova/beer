@@ -1,21 +1,26 @@
-import React, { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
-import { DataContext } from "../../App";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { loginFalse, loginTrue } from "../../store/loginReducer";
+import { useDispatch, useSelector } from "react-redux";
+import cartPic from "../../assets/cart.svg";
 
 import Modal from "../Modal";
 
 import "./Header.css";
 
 function Header() {
-  const { data, setData } = useContext(DataContext);
+  const isLoggin = useSelector((state) => state.login.isLogin);
+  const cart = useSelector((state) => state.cart);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const dispatch = useDispatch();
 
   const navigate = useNavigate();
 
   const logIn = (login, password) => {
     if (login === "admin" && password === "admin") {
+      dispatch(loginTrue());
       setIsModalOpen(false);
-      setData((state) => ({ ...state, isLoggin: true }));
       navigate("/");
       return true;
     }
@@ -23,7 +28,7 @@ function Header() {
   };
 
   const logOut = () => {
-    setData((state) => ({ ...state, isLoggin: false }));
+    dispatch(loginFalse());
   };
 
   const handleToggleModal = () => setIsModalOpen(!isModalOpen);
@@ -31,10 +36,13 @@ function Header() {
   return (
     <div className="header">
       <h1>BEER STORE</h1>
-      {data.isLoggin ? (
+      {isLoggin ? (
         <div className="header-block">
           {" "}
-          <p className="cart">{`cart: ${data.cart.goods} products ${data.cart.price}$ `}</p>
+          <Link to="/cart">
+            <img src={cartPic} alt="cart"></img>{" "}
+          </Link>
+          <p className="cart">{`${cart.goods} products ${cart.price}$ `}</p>
           <button onClick={logOut}>LOG OUT</button>{" "}
         </div>
       ) : (

@@ -2,38 +2,34 @@ import React from "react";
 import Header from "../../components/Header";
 import "./Productpage.css";
 import Navigate from "../../components/Navigate";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { useParams } from "react-router-dom";
-import { DataContext } from "../../App";
+import { useSelector, useDispatch } from "react-redux";
+import { addGoodToCart } from "../../store/cartReducer";
+import { reduceAvailability } from "../../store/beerInfoReducer";
 
 function Productpage() {
-  const { data, setData } = useContext(DataContext);
   const [amountOfBottles, setAmountOfBottles] = useState(1);
   const { productId } = useParams();
+  const isLoggin = useSelector((state) => state.login.isLogin);
+  const dispatch = useDispatch();
+  const { beers } = useSelector((store) => store.beerInfo);
 
-  let productInfo = data.beers.find((item) => item.id === Number(productId));
+  let beer = beers.find((item) => item.id === Number(productId));
 
   const addToCart = () => {
-    const beers = data.beers.map((beer) => {
-      if (beer.id === Number(productId)) {
-        return { ...beer, ebc: beer.ebc - amountOfBottles };
-      }
-      return beer;
-    });
-
-    setData((state) => ({
-      ...state,
-      beers,
-      cart: {
-        goods: state.cart.goods + +amountOfBottles,
-        price:
-          state.cart.price +
-          amountOfBottles * (Math.ceil(productInfo.abv) * 1.5),
-      },
-    }));
+    dispatch(
+      addGoodToCart(
+        beer.id,
+        beer.name,
+        +amountOfBottles,
+        amountOfBottles * (Math.ceil(beer.abv) * 1.5)
+      )
+    );
+    dispatch(reduceAvailability(beer.id, +amountOfBottles));
   };
 
-  if (!productInfo) {
+  if (!beer) {
     return <p>Loading...</p>;
   }
   return (
@@ -42,20 +38,20 @@ function Productpage() {
       <Navigate />
       <div className="product-page">
         <div className="beer-pic">
-          <img src={productInfo.image_url} alt="beer"></img>
+          <img src={beer.image_url} alt="beer"></img>
         </div>
         <div className="beer-info">
-          <h2>{productInfo.name}</h2>
-          <h6>{`${Math.ceil(productInfo.abv) * 1.5} $`}</h6>
-          <p>{productInfo.description}</p>
-          <p>{`in stock: ${productInfo.ebc}`}</p>
-          {data.isLoggin ? (
-            productInfo.ebc !== null && productInfo.ebc !==0 ? (
+          <h2>{beer.name}</h2>
+          <h6>{`${Math.ceil(beer.abv) * 1.5} $`}</h6>
+          <p>{beer.description}</p>
+          <p>{`in stock: ${beer.ebc}`}</p>
+          {isLoggin ? (
+            beer.ebc !== null && beer.ebc !== 0 ? (
               <>
                 <input
                   type="number"
                   min="1"
-                  max={productInfo.ebc}
+                  max={beer.ebc}
                   value={amountOfBottles}
                   onChange={(e) => setAmountOfBottles(e.target.value)}
                 ></input>

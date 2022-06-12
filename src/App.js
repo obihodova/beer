@@ -4,6 +4,7 @@ import "./App.css";
 import Homepage from "./pages/Homepage";
 import Aboutpage from "./pages/Aboutpage";
 import Productpage from "./pages/Productpage";
+import Cartpage from "./pages/Cartpage/Cartpage";
 import Notfound from "./pages/Notfound";
 import { useState, useEffect } from "react";
 import { fetchBeers } from "./asyncActions/beers";
@@ -45,6 +46,7 @@ function App() {
           <Route path="/" element={<Homepage />} />
           <Route path="/about" element={<Aboutpage />} />
           <Route path="/product/:productId" element={<Productpage />} />
+          <Route path="/cart" element={<Cartpage />} />
           <Route path="*" element={<Notfound />} />
         </Routes>
       </div>

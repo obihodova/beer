@@ -3,16 +3,11 @@ import Header from "../../components/Header";
 import "./Homepage.css";
 import Navigate from "../../components/Navigate";
 import Productcard from "../../components/Productcard";
-import { DataContext } from "../../App";
 import { useSelector } from "react-redux";
 
-
-
 function Homepage() {
-  const { data } = useContext(DataContext);
-  
-  const beerInfo = useSelector(store => store.beerInfo);
-  console.log(beerInfo);
+
+  const { beers } = useSelector((store) => store.beerInfo);
 
   return (
     <div>
@@ -26,8 +21,8 @@ function Homepage() {
       </p>
       <h2>СATALOG</h2>
       <div className="product-container">
-        {beerInfo.beers.map((beer) => (
-          <Productcard  key={beer.id}/>
+        {beers.map((beer) => (
+          <Productcard key={beer.id} beer={beer} />
         ))}
       </div>
     </div>

@@ -1,5 +1,5 @@
 const defaultState = {
-  isLogin: false,
+  isLogin: true,
 };
 
 const LOGIN_TRUE = "LOGIN_TRUE";
@@ -17,3 +17,5 @@ export const loginReduser = (state = defaultState, action) => {
   }
 };
 
+export const loginTrue = () => ({ type: LOGIN_TRUE });
+export const loginFalse = () => ({ type: LOGIN_FALSE });

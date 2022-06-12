@@ -1,52 +1,38 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./Productcard.css";
-import { DataContext } from "../../App";
-import { useContext } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { addGoodToCart } from "../../store/cartReducer";
+import { reduceAvailability } from "../../store/beerInfoReducer";
 
 function Productcard(props) {
-  const { productInfo } = props;
-  const { data, setData } = useContext(DataContext);
-
-
-  // const productInfo = useSelector(store => store.beerInfo);
+  const { beer } = props;
+  const isLoggin = useSelector((state) => state.login.isLogin);
+  const dispatch = useDispatch();
 
   const addToCart = () => {
-    const beers = data.beers.map((beer) => {
-      if (beer.id === Number(productInfo.id)) {
-        return { ...beer, ebc: beer.ebc - 1 };
-      }
-      return beer;
-    });
-
-    setData((state) => ({
-      ...state,
-      beers,
-      cart: {
-        goods: state.cart.goods + 1,
-        price: state.cart.price + Math.ceil(productInfo.abv) * 1.5,
-      },
-    }));
+    dispatch(addGoodToCart(beer.id, beer.name, 1, beerCost));
+    dispatch(reduceAvailability(beer.id, 1));
   };
 
-  let beerCost = Math.ceil(productInfo.abv) * 1.5;
+
+  let beerCost = Math.ceil(beer.abv) * 1.5;
 
   return (
     <div className="product">
       <div className="product-img">
-        <img src={productInfo.image_url} alt="beer"></img>
+        <img src={beer.image_url} alt="beer"></img>
       </div>
 
       <div className="product-container">
         <div className="product-name">
-          <Link to={`/product/${productInfo.id}`}>
-            <p className="product-link">{productInfo.name}</p>
+          <Link to={`/product/${beer.id}`}>
+            <p className="product-link">{beer.name}</p>
           </Link>
           <h6>{`${beerCost} $`}</h6>
         </div>
-        {data.isLoggin ? (
-          productInfo.ebc !== null && productInfo.ebc !== 0 ? (
+        {isLoggin ? (
+          beer.ebc !== null && beer.ebc !== 0 ? (
             <button onClick={addToCart}>ADD TO CART</button>
           ) : (
             <button>OUT OF STOCK</button>
