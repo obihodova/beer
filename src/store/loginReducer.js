@@ -1,5 +1,5 @@
 const defaultState = {
-  isLogin: true,
+  isLogin: false,
 };
 
 const LOGIN_TRUE = "LOGIN_TRUE";
